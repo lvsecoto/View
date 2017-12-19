@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="默认，带边框，被边框切割的长方体指示器"
+        />
+
+    <com.yjy.segment.Segment
+
+        app:textSize="16sp"
+        app:round="12dp"
+        app:color="@color/subject"
+        app:paddingX="20dp"
+        app:paddingY="4dp"
+        app:borderWidth = "1.5dp"
+        app:entry="@array/textEntry"
+
+        style="@style/standard" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="灰色背景，字体白色，指示器悬浮在上面"
+        />
+
+    <com.yjy.segment.Segment
+        app:textSize="16sp"
+        app:round="12dp"
+        app:color="@color/subject"
+        app:paddingX="20dp"
+        app:paddingY="4dp"
+        app:borderWidth = "1.5dp"
+        app:entry="@array/netEntry"
+
+        app:highlightStyle="ROUND"
+        app:borderColor="@color/none"
+        app:backgroundColor="@color/shadow"
+        app:dividerColor="@color/none"
+        app:textColor="#FFF"
+
+        style="@style/standard" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="无背景，字体灰色，无指示器，高亮字体"
+        />
+
+    <com.yjy.segment.Segment
+        style="@style/standard"
+        android:layout_width="match_parent"
+
+        app:textSize="18sp"
+        app:round="12dp"
+        app:color="@color/subject"
+        app:paddingX="20dp"
+        app:paddingY="2dp"
+        app:borderWidth = "1.5dp"
+        app:entry="@array/numEntry"
+
+        app:textColor="@color/shadow"
+        app:highlightTextColor="@color/subject"
+        app:highlightColor="@color/none"
+        app:borderColor="@color/none"
+        app:dividerColor="@color/none"
+        />
+
+</LinearLayout>

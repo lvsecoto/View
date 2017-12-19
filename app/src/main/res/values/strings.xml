@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">View</string>
+    <string-array name="textEntry">
+        <item>ON</item>
+        <item>DISABLE</item>
+        <item>OFF</item>
+    </string-array>
+
+    <string-array name="netEntry">
+        <item>电信</item>
+        <item>移动</item>
+        <item>长城宽带</item>
+    </string-array>
+
+    <string-array name="numEntry">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>0</item>
+    </string-array>
+
+</resources>
