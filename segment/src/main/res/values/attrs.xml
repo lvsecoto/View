@@ -36,6 +36,7 @@
         <attr name="highlightStyle" format="enum">
             <enum name="NORMAL" value="0"/>
             <enum name="ROUND" value="1"/>
+            <enum name="CIRCLE" value="2"/>
         </attr>
 
         <attr name="entryColor" format="reference"/>

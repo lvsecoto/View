@@ -2,6 +2,7 @@ package com.yjy.segment.render;
 
 import com.yjy.segment.Configure;
 import com.yjy.segment.frame.Frame;
+import com.yjy.segment.render.strategy.CircleDrawHighLight;
 import com.yjy.segment.render.strategy.DefaultDrawBackground;
 import com.yjy.segment.render.strategy.DefaultDrawDivider;
 import com.yjy.segment.render.strategy.DefaultDrawHighlight;
@@ -51,6 +52,8 @@ public class RenderBuilder {
         switch (mConfigure.getHighlightStyle()) {
             case ROUND:
                 return new RoundDrawHighlight(mConfigure, mFrame, getDrawTextStrategy());
+            case CIRCLE:
+                return new CircleDrawHighLight(mConfigure, mFrame, getDrawTextStrategy());
             default:
                 return new DefaultDrawHighlight(mConfigure, mFrame, getDrawTextStrategy());
         }

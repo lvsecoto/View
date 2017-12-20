@@ -73,4 +73,28 @@
         app:dividerColor="@color/none"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="无背景，字体灰色，圆形指示器"
+        />
+
+    <com.yjy.segment.Segment
+        style="@style/standard"
+        android:layout_width="match_parent"
+
+        app:textSize="18sp"
+        app:round="12dp"
+        app:color="@color/subject"
+        app:paddingX="20dp"
+        app:paddingY="2dp"
+        app:borderWidth = "1.5dp"
+        app:entry="@array/numEntry"
+
+        app:textColor="@color/shadow"
+        app:borderColor="@color/none"
+        app:dividerColor="@color/none"
+        app:highlightStyle="CIRCLE"
+        />
+
 </LinearLayout>

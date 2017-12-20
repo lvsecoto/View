@@ -145,6 +145,6 @@ public class Configure {
     }
 
     public enum HighlightStyle {
-        NORMAL, ROUND
+        NORMAL, ROUND, CIRCLE
     }
 }
