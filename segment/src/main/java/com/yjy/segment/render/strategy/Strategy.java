@@ -48,11 +48,25 @@ public interface Strategy {
      * 文字绘制策略
      */
     interface DrawText extends base {
+        /**
+         * 可以修改文字Paint的策略类
+         */
+        interface PaintStrategy {
+
+            /**
+             * @param textPaint 实现类对此Paint进行修改
+             */
+            void changePaint(Paint textPaint);
+
+            /**
+             * @param textPaint 修改Paint后要对其还原
+             */
+            void restorePaint(Paint textPaint);
+        }
 
         /**
-         * 绘制文字
          */
-        void drawText(Canvas canvas);
+        void drawText(Canvas canvas, PaintStrategy paintStrategy);
     }
 
     /**

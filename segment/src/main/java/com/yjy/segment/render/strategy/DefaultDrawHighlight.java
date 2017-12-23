@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Xfermode;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.graphics.drawable.shapes.Shape;
@@ -24,6 +25,8 @@ public class DefaultDrawHighlight extends BaseStrategy implements Strategy.DrawH
     private static final PorterDuffXfermode XFERMODE_DST_IN = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
 
     private static final PorterDuffXfermode XFERMODE_SRC_OUT = new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT);
+
+    private final TextPaintStrategy mTextPaintStrategy = new TextPaintStrategy();
 
     private final Strategy.DrawText mDrawTextStrategy;
 
@@ -131,10 +134,29 @@ public class DefaultDrawHighlight extends BaseStrategy implements Strategy.DrawH
         paint.setColor(Color.BLACK);
         drawHighLightBar(canvas, paint, getFrame());
 
-        drawTextStrategy.getPaint().setColor(Color.BLACK);
-        drawTextStrategy.getPaint().setXfermode(XFERMODE_DST_OUT);
-        drawTextStrategy.drawText(canvas);
-        drawTextStrategy.getPaint().setXfermode(null);
+        drawTextStrategy.drawText(canvas, mTextPaintStrategy);
+    }
+
+    private static class TextPaintStrategy implements Strategy.DrawText.PaintStrategy {
+
+        private Xfermode mCachedXfermode;
+        private int mCachedColor;
+
+        @Override
+        public void changePaint(Paint textPaint) {
+
+            mCachedColor = textPaint.getColor();
+            textPaint.setColor(Color.BLACK);
+
+            mCachedXfermode = textPaint.getXfermode();
+            textPaint.setXfermode(XFERMODE_DST_OUT);
+        }
+
+        @Override
+        public void restorePaint(Paint textPaint) {
+            textPaint.setColor(mCachedColor);
+            textPaint.setXfermode(mCachedXfermode);
+        }
     }
 
 }

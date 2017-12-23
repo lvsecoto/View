@@ -36,7 +36,10 @@ public class DefaultDrawText extends BaseStrategy implements Strategy.DrawText {
     }
 
     @Override
-    public void drawText(Canvas canvas) {
-        drawText(canvas, getPaint(), getFrame());
+    public void drawText(Canvas canvas, PaintStrategy paintStrategy) {
+        Paint paint = getPaint();
+        paintStrategy.changePaint(paint);
+        drawText(canvas, paint, getFrame());
+        paintStrategy.restorePaint(paint);
     }
 }
