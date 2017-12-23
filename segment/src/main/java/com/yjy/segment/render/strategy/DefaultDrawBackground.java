@@ -2,64 +2,58 @@ package com.yjy.segment.render.strategy;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
 
 import com.yjy.segment.Configure;
 import com.yjy.segment.frame.Frame;
 
 /**
- * 绘制一个圆角边框
+ * 绘制背景
+ * <p>
+ * <p>背景是一个圆角矩形，包括边框和填充背景</p>
+ * <p>边框颜色由{@link Configure#getBorderColor()}决定</p>
+ * <p>填充背景颜色由{@link Configure#getBackgroundColor()}决定</p>
+ * <b>若使用半透明颜色，注意边框和填充背景是重叠的</b>
  */
-public class DefaultDrawBackground implements Strategy.DrawBackground {
-
-    private Configure mConfigure;
-    private final Frame mFrame;
-
-    private final float mRound;
-
-    private Paint mPaint;
-
+public class DefaultDrawBackground extends BaseStrategy implements Strategy.DrawBackground {
 
     public DefaultDrawBackground(Configure configure, Frame frame) {
-        mConfigure = configure;
+        super(configure, frame);
 
-        mFrame = frame;
-        mPaint = new Paint();
-        mPaint.setStrokeWidth(configure.getBorderWidth());
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setAntiAlias(true);
-
-        mRound = configure.getRound();
-    }
-
-    @Override
-    public void prepare() {
-
+        Paint paint = getPaint();
+        paint.setStrokeWidth(configure.getBorderWidth());
+        paint.setAntiAlias(true);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        mPaint.setStyle(Paint.Style.FILL);
-        mPaint.setColor(mConfigure.getBackgroundColor());
-        canvas.drawRoundRect(
-                new RectF(mFrame.getBorderBound()),
-                mRound,
-                mRound,
-                mPaint
-        );
+        Paint paint = getPaint();
 
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(mConfigure.getBorderColor());
+        drawBackground(canvas, paint, getConfigure());
+        drawBackgroundBorder(canvas, paint, getConfigure());
+    }
+
+    private void drawBackground(Canvas canvas, Paint paint, Configure configure) {
+        float round = getConfigure().getRound();
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(configure.getBackgroundColor());
         canvas.drawRoundRect(
-                new RectF(mFrame.getBorderBound()),
-                mRound,
-                mRound,
-                mPaint
+                getFrame().getBorderBound(),
+                round,
+                round,
+                paint
         );
     }
 
-    public Paint getPaint() {
-        return mPaint;
+    private void drawBackgroundBorder(Canvas canvas, Paint paint, Configure configure) {
+        float round = getConfigure().getRound();
+
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(configure.getBorderColor());
+        canvas.drawRoundRect(
+                getFrame().getBorderBound(),
+                round,
+                round,
+                paint
+        );
     }
 }

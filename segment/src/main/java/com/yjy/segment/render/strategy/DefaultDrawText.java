@@ -5,52 +5,41 @@ import android.graphics.Paint;
 
 import com.yjy.segment.Configure;
 import com.yjy.segment.frame.Frame;
-import com.yjy.segment.render.strategy.Strategy;
 
 /**
- * Created by Administrator on 2017/12/16 0016.
+ * 绘制文字
  */
-public class DefaultDrawText implements Strategy.DrawText {
-
-    private final Configure mConfigure;
-
-    private final Frame mFrame;
-
-    private Paint mTextPaint;
+public class DefaultDrawText extends BaseStrategy implements Strategy.DrawText {
 
     public DefaultDrawText(Configure configure, Frame frame) {
-        mConfigure = configure;
-        mFrame = frame;
+        super(configure, frame);
 
-        mTextPaint = new Paint();
-        mTextPaint.setTextSize(configure.getTextSize());
-        mTextPaint.setTextAlign(Paint.Align.CENTER);
-        mTextPaint.setAntiAlias(true);
-        mTextPaint.setFakeBoldText(true);
-    }
-
-    @Override
-    public void prepare() {
-
+        Paint paint = getPaint();
+        paint.setTextSize(configure.getTextSize());
+        paint.setTextAlign(Paint.Align.CENTER);
+        paint.setAntiAlias(true);
+        paint.setFakeBoldText(true);
+        paint.setColor(getConfigure().getTextColor());
     }
 
     @Override
     public void draw(Canvas canvas) {
-        mTextPaint.setColor(mConfigure.getTextColor());
-        drawText(canvas);
+        drawText(canvas, getPaint(), getFrame());
     }
 
-    @Override
-    public Paint getPaint() {
-        return mTextPaint;
-    }
-
-    @Override
-    public void drawText(Canvas canvas) {
-        for (Frame.Item item : mFrame.getItems()) {
+    private void drawText(Canvas canvas, Paint paint, Frame frame) {
+        for (Frame.Item item : frame.getItems()) {
             canvas.drawText(
-                    item.getText(), item.getTextPos().x, item.getTextPos().y, mTextPaint
+                    item.getText(), item.getTextPos().x, item.getTextPos().y, paint
             );
         }
+    }
+
+    @Override
+    public void drawText(Canvas canvas, PaintStrategy paintStrategy) {
+        Paint paint = getPaint();
+        paintStrategy.changePaint(paint);
+        drawText(canvas, paint, getFrame());
+        paintStrategy.restorePaint(paint);
     }
 }
