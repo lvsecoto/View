@@ -26,10 +26,6 @@ public interface Strategy {
          */
         void draw(Canvas canvas);
 
-        /**
-         * Paint对象
-         */
-        Paint getPaint();
     }
 
     /**

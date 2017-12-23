@@ -44,8 +44,7 @@ class BaseStrategy implements Strategy.base {
     /**
      * @return 用于绘制的画笔
      */
-    @Override
-    public Paint getPaint() {
+    protected Paint getPaint() {
         return mPaint;
     }
 
