@@ -1,14 +1,14 @@
 package com.yjy.segment.render.strategy;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 
 import com.yjy.segment.Configure;
 import com.yjy.segment.frame.Frame;
 
 /**
- * Created by Administrator on 2017/12/18 0018.
+ * 绘制圆角高亮
  */
-
 public class RoundDrawHighlight extends DefaultDrawHighlight {
     private final float mRound;
 
@@ -18,7 +18,7 @@ public class RoundDrawHighlight extends DefaultDrawHighlight {
     }
 
     @Override
-    protected void drawHighLightBar(Canvas canvas) {
-        canvas.drawRoundRect(getFrame().getHighlightBound(), mRound, mRound, getPaint());
+    protected void drawHighLightBar(Canvas canvas, Paint paint, Frame frame) {
+        canvas.drawRoundRect(getFrame().getHighlightBound(), mRound, mRound, paint);
     }
 }
