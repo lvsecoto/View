@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.yjy.segment.Configure;
+import com.yjy.segment.animate.Animate;
 import com.yjy.segment.frame.Frame;
 
 /**
@@ -17,7 +18,7 @@ import com.yjy.segment.frame.Frame;
  * </ul>
  * </p>
  */
-class BaseStrategy implements Strategy.base {
+class BaseStrategy implements Strategy.base, Animate.OnUpdateListener {
 
     private final Frame mFrame;
 
@@ -38,6 +39,21 @@ class BaseStrategy implements Strategy.base {
 
     @Override
     public void draw(Canvas canvas) {
+
+    }
+
+    @Override
+    public void bindAnimate(Animate animate) {
+        animate.addUpdateListener(this);
+    }
+
+    @Override
+    public void onUpdate(float time) {
+
+    }
+
+    @Override
+    public void onItemSelect(int selectedItem) {
 
     }
 

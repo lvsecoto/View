@@ -13,7 +13,6 @@ import com.yjy.segment.animate.Animate;
 import com.yjy.segment.animate.DefaultAnimate;
 import com.yjy.segment.frame.DefaultFrame;
 import com.yjy.segment.frame.Frame;
-import com.yjy.segment.render.BaseRender;
 import com.yjy.segment.render.Render;
 import com.yjy.segment.render.RenderBuilder;
 
@@ -36,7 +35,8 @@ public class Segment extends View {
 
         mFrame = defaultFrame;
 
-        mRender = new RenderBuilder(configure, mFrame).build();
+        RenderBuilder renderBuilder = new RenderBuilder(configure, mFrame, mAnimator);
+        mRender = renderBuilder.build();
 
         mAnimator.addUpdateListener(new Animate.OnUpdateListener() {
             @Override

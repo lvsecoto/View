@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import com.yjy.segment.Segment;
+import com.yjy.segment.animate.Animate;
 import com.yjy.segment.frame.Frame;
 
 /**
@@ -26,6 +27,10 @@ public interface Strategy {
          */
         void draw(Canvas canvas);
 
+        /**
+         * 绑定动画对象，使其能接收动画的更新
+         */
+        void bindAnimate(Animate animate);
     }
 
     /**

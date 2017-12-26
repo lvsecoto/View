@@ -1,6 +1,7 @@
 package com.yjy.segment.render;
 
 import com.yjy.segment.Configure;
+import com.yjy.segment.animate.Animate;
 import com.yjy.segment.frame.Frame;
 import com.yjy.segment.render.strategy.CircleDrawHighLight;
 import com.yjy.segment.render.strategy.DefaultDrawBackground;
@@ -18,10 +19,12 @@ public class RenderBuilder {
 
     private Configure mConfigure;
     private Frame mFrame;
+    private Animate mAnimate;
 
-    public RenderBuilder(Configure configure, Frame frame) {
+    public RenderBuilder(Configure configure, Frame frame, Animate animate) {
         mConfigure = configure;
         mFrame = frame;
+        mAnimate = animate;
     }
 
     public Render build() {
@@ -37,26 +40,42 @@ public class RenderBuilder {
     }
 
     private Strategy.DrawText getDrawTextStrategy() {
-        return new DefaultDrawText(mConfigure, mFrame);
+        Strategy.DrawText strategy = new DefaultDrawText(mConfigure, mFrame);
+        strategy.bindAnimate(mAnimate);
+
+        return strategy;
     }
 
     private Strategy.DrawDivider getDrawDividerStrategy() {
-        return new DefaultDrawDivider(mConfigure, mFrame);
+        Strategy.DrawDivider strategy = new DefaultDrawDivider(mConfigure, mFrame);
+        strategy.bindAnimate(mAnimate);
+
+        return strategy;
     }
 
     private Strategy.DrawBackground getDrawBackgoundStrategy() {
-        return new DefaultDrawBackground(mConfigure, mFrame);
+        Strategy.DrawBackground strategy = new DefaultDrawBackground(mConfigure, mFrame);
+        strategy.bindAnimate(mAnimate);
+
+        return strategy;
     }
 
     private Strategy.DrawHighlight getDrawHighlightStrategy() {
+        Strategy.DrawHighlight strategy;
         switch (mConfigure.getHighlightStyle()) {
             case ROUND:
-                return new RoundDrawHighlight(mConfigure, mFrame, getDrawTextStrategy());
+                strategy = new RoundDrawHighlight(mConfigure, mFrame, getDrawTextStrategy());
+                break;
             case CIRCLE:
-                return new CircleDrawHighLight(mConfigure, mFrame, getDrawTextStrategy());
+                strategy = new CircleDrawHighLight(mConfigure, mFrame, getDrawTextStrategy());
+                break;
             default:
-                return new DefaultDrawHighlight(mConfigure, mFrame, getDrawTextStrategy());
+                strategy = new DefaultDrawHighlight(mConfigure, mFrame, getDrawTextStrategy());
+                break;
         }
+        strategy.bindAnimate(mAnimate);
+
+        return strategy;
     }
 
     public void setConfigure(Configure configure) {
