@@ -77,7 +77,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="无背景，字体灰色，圆形指示器" />
+            android:text="无背景，字体灰色，圆形指示器，分割线35%高度" />
 
         <com.yjy.segment.Segment
             style="@style/standard"
@@ -86,7 +86,8 @@
             app:borderColor="@color/none"
             app:borderWidth="1.5dp"
             app:color="@color/subject"
-            app:dividerColor="@color/none"
+            app:dividerColor="@color/shadow"
+            app:dividerScale="35%"
             app:entry="@array/numEntry"
             app:highlightStyle="CIRCLE"
             app:paddingX="20dp"

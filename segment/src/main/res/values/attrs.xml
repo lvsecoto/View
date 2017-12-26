@@ -51,5 +51,8 @@
             <flag name="highlight_text" value="32" />
         </attr>
 
+        <!--分割线高度百分比，范围0 - 1，最高为Segment高度-->
+        <attr name="dividerScale" format="fraction" />
+
     </declare-styleable>
 </resources>
