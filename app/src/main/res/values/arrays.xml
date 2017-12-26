@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="fruitColors" >
+        <item>@color/apple</item>
+        <item>@color/banana</item>
+        <item>@color/orange</item>
+    </integer-array>
+    <integer-array  name="onOffColor" >
+        <item>@color/off</item>
+        <item>@color/on</item>
+    </integer-array>-array>
+</resources>

@@ -6,4 +6,9 @@
     <color name="shadow">#1a000000</color>
     <color name="none">#0000</color>
     <color name="subject">#54acff</color>
+    <color name="apple">#ee4000</color>
+    <color name="banana">#ebc000</color>
+    <color name="orange">#ff800a</color>
+    <color name="on">#388e3c</color>
+    <color name="off" >#ef5350</color>
 </resources>
