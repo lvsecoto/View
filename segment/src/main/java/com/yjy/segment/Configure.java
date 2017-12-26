@@ -33,6 +33,8 @@ public class Configure {
     // roundBorder round r
     float mRound = 25;
 
+    private final float mDividerScale;
+
     private final int mTextColor;
 
     private final int mBorderColor;
@@ -53,6 +55,8 @@ public class Configure {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.segment);
         mRound = typedArray.getDimension(
                 R.styleable.segment_round, dpToPix(context, 25));
+
+        mDividerScale = getDividerScale(typedArray);
 
         mBorderWidth = typedArray.getDimension(
                 R.styleable.segment_borderWidth, dpToPix(context, 1.5f));
@@ -99,6 +103,18 @@ public class Configure {
         return context.getResources().getIntArray(id);
     }
 
+    private float getDividerScale(TypedArray typedArray) {
+        float dividerScale;
+        dividerScale = typedArray.getFraction(R.styleable.segment_dividerScale, 1, 1, 1.0f);
+
+        if (dividerScale > 1) {
+            dividerScale = 1;
+        } else if (dividerScale < 0) {
+            dividerScale = 0;
+        }
+        return dividerScale;
+    }
+
     private int dpToPix(Context context, float dp) {
         return (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -142,6 +158,13 @@ public class Configure {
 
     public float getRound() {
         return mRound;
+    }
+
+    /**
+     * @return 分割线高度百分比，范围0 - 1
+     */
+    public float getDividerScale() {
+        return mDividerScale;
     }
 
     public HighlightStyle getHighlightStyle() {

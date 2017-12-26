@@ -45,11 +45,13 @@ public class DefaultDrawDivider extends BaseStrategy implements Strategy.DrawDiv
     }
 
     private void drawDivider(Canvas canvas, Paint paint, RectF itemBound) {
+        float offsetByScale = (1 - getConfigure().getDividerScale()) * itemBound.height() / 2;
+
         canvas.drawLine(
                 itemBound.right,
-                itemBound.top,
+                itemBound.top + offsetByScale,
                 itemBound.right,
-                itemBound.bottom,
+                itemBound.bottom - offsetByScale,
                 paint
         );
     }
