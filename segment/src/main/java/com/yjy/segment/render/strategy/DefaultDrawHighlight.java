@@ -32,6 +32,10 @@ public class DefaultDrawHighlight extends BaseStrategy implements Strategy.DrawH
 
     private final float mRound;
 
+    private final boolean mIsHighlightUseMacroColor;
+
+    private final boolean mIsHighlightTextUseMacroColor;
+
     private ShapeDrawable mMaskerDrawable;
 
     public DefaultDrawHighlight(Configure configure, Frame frame, Strategy.DrawText drawTextStrategy) {
@@ -49,6 +53,8 @@ public class DefaultDrawHighlight extends BaseStrategy implements Strategy.DrawH
         mMaskerDrawable.getPaint().setStyle(Paint.Style.FILL);
         mMaskerDrawable.getPaint().setXfermode(XFERMODE_DST_IN);
 
+        mIsHighlightUseMacroColor = getConfigure().isUseMacroColor(Configure.MacroColor.HIGHLIGHT);
+        mIsHighlightTextUseMacroColor = getConfigure().isUseMacroColor(Configure.MacroColor.HIGHLIGHT_TEXT);
     }
 
     @Override
@@ -93,9 +99,16 @@ public class DefaultDrawHighlight extends BaseStrategy implements Strategy.DrawH
 
     private void drawHighLightBar(Canvas canvas) {
         Paint paint = getPaint();
-        getPaint().setColor(getConfigure().getHighlightColor());
+        getPaint().setColor(getHighlightColor());
 
         drawHighLightBar(canvas, paint, getFrame());
+    }
+
+    private int getHighlightColor() {
+        if (mIsHighlightUseMacroColor) {
+            return getMacroColor();
+        }
+        return getConfigure().getHighlightColor();
     }
 
     protected void drawHighLightBar(Canvas canvas, Paint paint, Frame frame) {
@@ -121,10 +134,17 @@ public class DefaultDrawHighlight extends BaseStrategy implements Strategy.DrawH
      * 在遮罩上黑色文字转换为高亮颜色
      */
     private void drawTextOnMasker(Canvas canvas, Paint paint) {
-        paint.setColor(getConfigure().getHighlightTextColor());
+        paint.setColor(getHighlightTextColor());
         paint.setXfermode(XFERMODE_SRC_OUT);
         drawHighLightBar(canvas, paint, getFrame());
         paint.setXfermode(null);
+    }
+
+    private int getHighlightTextColor() {
+        if (mIsHighlightTextUseMacroColor) {
+            return getMacroColor();
+        }
+        return getConfigure().getHighlightTextColor();
     }
 
     /**

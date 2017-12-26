@@ -3,6 +3,7 @@ package com.yjy.segment;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
@@ -13,6 +14,8 @@ public class Configure {
 
     String[] mItemTexts;
     // Segment text size
+
+    private final int[] mItemColors;
 
     float mTextSize;
     // Stroke width of segment border
@@ -44,6 +47,8 @@ public class Configure {
 
     private  HighlightStyle mHighlightStyle;
 
+    private final int mMacroColorBitFlags;
+
     Configure(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.segment);
         mRound = typedArray.getDimension(
@@ -70,6 +75,10 @@ public class Configure {
         int id = typedArray.getResourceId(R.styleable.segment_entry, -1);
         mItemTexts = context.getResources().getStringArray(id);
 
+        mItemColors = getItemColors(context, typedArray);
+
+        mMacroColorBitFlags = typedArray.getInt(R.styleable.segment_macroColor, 0);
+
         mTextColor = typedArray.getColor(R.styleable.segment_textColor, mColor);
         mHighlightTextColor = typedArray.getColor(R.styleable.segment_highlightTextColor, Color.WHITE);
         mBorderColor = typedArray.getColor(R.styleable.segment_borderColor, mColor);
@@ -81,6 +90,15 @@ public class Configure {
 
     }
 
+    @Nullable
+    private int[] getItemColors(Context context, TypedArray typedArray) {
+        int id = typedArray.getResourceId(R.styleable.segment_entryColor, 0);
+        if (id == 0) {
+            return null;
+        }
+        return context.getResources().getIntArray(id);
+    }
+
     private int dpToPix(Context context, float dp) {
         return (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -90,6 +108,16 @@ public class Configure {
 
     public String[] getItemTexts() {
         return mItemTexts;
+    }
+
+    /**
+     * 获取每个选项设定的颜色
+     *
+     * @return 当没有设置该项，返回null
+     */
+    @Nullable
+    public int[] getItemColors() {
+        return mItemColors;
     }
 
     public float getTextSize() {
@@ -144,7 +172,28 @@ public class Configure {
         return mHighlightColor;
     }
 
+    /**
+     * 判断是否绘制部分是否使用了macro color
+     */
+    public boolean isUseMacroColor(MacroColor macroColor) {
+        return MacroColor.isMatch(mMacroColorBitFlags, macroColor);
+    }
+
     public enum HighlightStyle {
         NORMAL, ROUND, CIRCLE
     }
+
+    /**
+     * 哪一个绘制部分需要用到Macro Color
+     */
+    public enum MacroColor {
+        BORDER, BACKGROUND, DIVIDER, TEXT, HIGHLIGHT, HIGHLIGHT_TEXT;
+
+        private final int mBitMasker = 1 << this.ordinal();
+
+        public static boolean isMatch(int bitFlags, MacroColor macroColor) {
+            return (bitFlags & macroColor.mBitMasker) == macroColor.mBitMasker;
+        }
+    }
+
 }

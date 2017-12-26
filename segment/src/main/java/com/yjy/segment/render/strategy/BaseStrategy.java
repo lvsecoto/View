@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import com.yjy.segment.Configure;
 import com.yjy.segment.animate.Animate;
 import com.yjy.segment.frame.Frame;
+import com.yjy.segment.render.strategy.utils.AnimateColor;
 
 /**
  * 渲染策略类的基类
@@ -26,10 +27,13 @@ class BaseStrategy implements Strategy.base, Animate.OnUpdateListener {
 
     private final Configure mConfigure;
 
+    private final AnimateColor mAnimateColor;
+
     public BaseStrategy(Configure configure, Frame frame) {
         mConfigure = configure;
         mFrame = frame;
         mPaint = new Paint();
+        mAnimateColor = new AnimateColor();
     }
 
     @Override
@@ -49,12 +53,16 @@ class BaseStrategy implements Strategy.base, Animate.OnUpdateListener {
 
     @Override
     public void onUpdate(float time) {
-
+        mAnimateColor.onUpdate(time);
     }
 
     @Override
     public void onItemSelect(int selectedItem) {
+        int[] itemColors = getConfigure().getItemColors();
 
+        if (itemColors != null) {
+            mAnimateColor.endColorWith(itemColors[selectedItem]);
+        }
     }
 
     /**
@@ -76,6 +84,10 @@ class BaseStrategy implements Strategy.base, Animate.OnUpdateListener {
      */
     protected Frame getFrame() {
         return mFrame;
+    }
+
+    protected int getMacroColor() {
+        return mAnimateColor.getColor();
     }
 
 }

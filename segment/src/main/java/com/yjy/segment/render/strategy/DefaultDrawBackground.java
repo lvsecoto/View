@@ -16,12 +16,19 @@ import com.yjy.segment.frame.Frame;
  */
 public class DefaultDrawBackground extends BaseStrategy implements Strategy.DrawBackground {
 
+    private boolean mIsBackgroundUseMacroColor;
+
+    private boolean mIsBorderUseMacroColor;
+
     public DefaultDrawBackground(Configure configure, Frame frame) {
         super(configure, frame);
 
         Paint paint = getPaint();
         paint.setStrokeWidth(configure.getBorderWidth());
         paint.setAntiAlias(true);
+
+        mIsBackgroundUseMacroColor = getConfigure().isUseMacroColor(Configure.MacroColor.BACKGROUND);
+        mIsBorderUseMacroColor = getConfigure().isUseMacroColor(Configure.MacroColor.BORDER);
     }
 
     @Override
@@ -34,8 +41,9 @@ public class DefaultDrawBackground extends BaseStrategy implements Strategy.Draw
 
     private void drawBackground(Canvas canvas, Paint paint, Configure configure) {
         float round = getConfigure().getRound();
+
+        paint.setColor(getBackgroundColor());
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(configure.getBackgroundColor());
         canvas.drawRoundRect(
                 getFrame().getBorderBound(),
                 round,
@@ -44,16 +52,30 @@ public class DefaultDrawBackground extends BaseStrategy implements Strategy.Draw
         );
     }
 
+    private int getBackgroundColor() {
+        if (mIsBackgroundUseMacroColor) {
+            return getMacroColor();
+        }
+        return getConfigure().getBackgroundColor();
+    }
+
     private void drawBackgroundBorder(Canvas canvas, Paint paint, Configure configure) {
         float round = getConfigure().getRound();
 
+        paint.setColor(getBorderColor());
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(configure.getBorderColor());
         canvas.drawRoundRect(
                 getFrame().getBorderBound(),
                 round,
                 round,
                 paint
         );
+    }
+
+    private int getBorderColor() {
+        if (mIsBorderUseMacroColor) {
+            return getMacroColor();
+        }
+        return getConfigure().getBorderColor();
     }
 }

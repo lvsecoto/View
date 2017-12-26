@@ -11,6 +11,8 @@ import com.yjy.segment.frame.Frame;
  */
 public class DefaultDrawText extends BaseStrategy implements Strategy.DrawText {
 
+    private final boolean mIsUseMacroColor;
+
     public DefaultDrawText(Configure configure, Frame frame) {
         super(configure, frame);
 
@@ -19,12 +21,23 @@ public class DefaultDrawText extends BaseStrategy implements Strategy.DrawText {
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setAntiAlias(true);
         paint.setFakeBoldText(true);
-        paint.setColor(getConfigure().getTextColor());
+
+        mIsUseMacroColor = getConfigure().isUseMacroColor(Configure.MacroColor.TEXT);
     }
 
     @Override
     public void draw(Canvas canvas) {
-        drawText(canvas, getPaint(), getFrame());
+        Paint paint = getPaint();
+        paint.setColor(getTextColor());
+
+        drawText(canvas, paint, getFrame());
+    }
+
+    private int getTextColor() {
+        if (mIsUseMacroColor) {
+            return getMacroColor();
+        }
+        return getConfigure().getTextColor();
     }
 
     private void drawText(Canvas canvas, Paint paint, Frame frame) {

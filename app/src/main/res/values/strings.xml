@@ -25,4 +25,15 @@
         <item>0</item>
     </string-array>
 
+    <string-array name="fruitEntry" >
+        <item>苹果</item>
+        <item>香蕉</item>
+        <item>橙</item>
+    </string-array>
+
+    <string-array name="onOff">
+        <item>关闭</item>
+        <item>打开</item>
+    </string-array>
+
 </resources>

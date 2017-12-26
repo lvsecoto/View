@@ -12,6 +12,8 @@ import com.yjy.segment.frame.Frame;
  */
 public class DefaultDrawDivider extends BaseStrategy implements Strategy.DrawDivider {
 
+    private boolean mIsUseMacroColor;
+
     public DefaultDrawDivider(Configure configure, Frame frame) {
         super(configure, frame);
 
@@ -19,17 +21,27 @@ public class DefaultDrawDivider extends BaseStrategy implements Strategy.DrawDiv
         paint.setStrokeWidth(configure.getBorderWidth());
         paint.setStyle(Paint.Style.STROKE);
         paint.setColor(configure.getDividerColor());
+
+        mIsUseMacroColor = getConfigure().isUseMacroColor(Configure.MacroColor.DIVIDER);
     }
 
     @Override
     public void draw(Canvas canvas) {
         Paint paint = getPaint();
 
+        paint.setColor(getDividerColor());
         for (int i = 0; i < getFrame().getItems().length - 1; i++) {
             RectF itemBound = getFrame().getItems()[i].getBound();
 
             drawDivider(canvas, paint, itemBound);
         }
+    }
+
+    private int getDividerColor() {
+        if (mIsUseMacroColor) {
+            return getMacroColor();
+        }
+        return getConfigure().getDividerColor();
     }
 
     private void drawDivider(Canvas canvas, Paint paint, RectF itemBound) {

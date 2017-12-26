@@ -41,5 +41,15 @@
 
         <attr name="entryColor" format="reference"/>
 
+        <!--设置哪一个绘制部分要跟随macro color-->
+        <attr name="macroColor">
+            <flag name="border" value="1" />
+            <flag name="background" value="2" />
+            <flag name="divider" value="4" />
+            <flag name="text" value="8" />
+            <flag name="highlight" value="16" />
+            <flag name="highlight_text" value="32" />
+        </attr>
+
     </declare-styleable>
 </resources>
