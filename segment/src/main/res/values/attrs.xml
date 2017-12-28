@@ -2,43 +2,60 @@
 <resources>
     <declare-styleable name="segment">
 
-        <attr name="round" format="dimension" />
-
-        <!--Segment text size-->
-        <attr name="textSize" format="dimension" />
-
-        <!--Stroke width of segment border-->
-        <attr name="borderWidth" format="dimension" />
-
-        <!--default segment color-->
-        <attr name="color" format="color" />
-
-        <!--Horizontal padding between text and segment border-->
-        <attr name="paddingX" format="dimension" />
-
-        <!--Vertical padding between text and segment border-->
-        <attr name="paddingY" format="dimension" />
-
+        <!--选项文本-->
         <attr name="entry" format="reference" />
 
-        <attr name="borderColor" format="color" />
+        <!--文本大小-->
+        <attr name="textSize" format="dimension" />
 
-        <attr name="backgroundColor" format="color" />
+        <!--圆角半径-->
+        <attr name="round" format="dimension" />
 
-        <attr name="dividerColor" format="color" />
+        <!--边框线条宽度-->
+        <attr name="borderWidth" format="dimension" />
 
-        <attr name="textColor" format="color" />
+        <!--文本到边框距离，水平方向-->
+        <attr name="paddingX" format="dimension" />
 
-        <attr name="highlightTextColor" format="color" />
+        <!--文本到边框距离，垂直方向-->
+        <attr name="paddingY" format="dimension" />
 
-        <attr name="highlightColor" format="color" />
-
+        <!--高亮类型-->
         <attr name="highlightStyle" format="enum">
+
+            <!--默认，矩形-->
             <enum name="NORMAL" value="0"/>
+
+            <!--圆角矩形-->
             <enum name="ROUND" value="1"/>
+
+            <!--圆形-->
             <enum name="CIRCLE" value="2"/>
+
         </attr>
 
+        <!--颜色-->
+        <attr name="color" format="color" />
+
+        <!--边框颜色-->
+        <attr name="borderColor" format="color" />
+
+        <!--背景颜色-->
+        <attr name="backgroundColor" format="color" />
+
+        <!--分割线颜色-->
+        <attr name="dividerColor" format="color" />
+
+        <!--文本颜色-->
+        <attr name="textColor" format="color" />
+
+        <!--高亮颜色-->
+        <attr name="highlightColor" format="color" />
+
+        <!--高亮文本颜色-->
+        <attr name="highlightTextColor" format="color" />
+
+        <!--选项颜色-->
         <attr name="entryColor" format="reference"/>
 
         <!--设置哪一个绘制部分要跟随macro color-->
