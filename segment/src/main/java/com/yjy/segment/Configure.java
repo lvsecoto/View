@@ -12,6 +12,16 @@ import android.util.TypedValue;
  */
 public class Configure {
 
+    private static final int DEFAULT_TEXT_SIZE = 14;
+
+    private static final int DEFAULT_ROUND = 8;
+
+    private static final float DEFAULT_BORDER_WIDTH = 1.5f;
+
+    private static final int DEFAULT_PADDING_X = 20;
+
+    private static final int DEFAULT_PADDING_Y = 4;
+
     private final String[] mItemTexts;
 
     private final float mTextSize;
@@ -53,26 +63,26 @@ public class Configure {
         mItemTexts = getItemTexts(context, typedArray);
 
         mTextSize = typedArray.getDimension(
-                R.styleable.segment_textSize, dpToPix(context, 14));
+                R.styleable.segment_textSize, dpToPix(context, DEFAULT_TEXT_SIZE));
 
         mRound = typedArray.getDimension(
-                R.styleable.segment_round, dpToPix(context, 25));
+                R.styleable.segment_round, dpToPix(context, DEFAULT_ROUND));
 
         mBorderWidth = typedArray.getDimension(
-                R.styleable.segment_borderWidth, dpToPix(context, 1.5f));
+                R.styleable.segment_borderWidth, dpToPix(context, DEFAULT_BORDER_WIDTH));
 
         mInsetPaddingX = typedArray.getDimension(
-                R.styleable.segment_paddingX, dpToPix(context, 0)
+                R.styleable.segment_paddingX, dpToPix(context, DEFAULT_PADDING_X)
         );
 
         mInsetPaddingY = typedArray.getDimension(
-                R.styleable.segment_paddingY, dpToPix(context, 0)
+                R.styleable.segment_paddingY, dpToPix(context, DEFAULT_PADDING_Y)
         );
 
         mHighlightStyle = HighlightStyle.values()[(typedArray.getInt(R.styleable.segment_highlightStyle, 0))];
 
         mColor = typedArray.getColor(
-                R.styleable.segment_color, Color.GRAY
+                R.styleable.segment_color, getPrimaryColor(context)
         );
 
         mTextColor = typedArray.getColor(R.styleable.segment_textColor, mColor);
@@ -89,6 +99,12 @@ public class Configure {
         mDividerScale = getDividerScale(typedArray);
 
         typedArray.recycle();
+    }
+
+    private int getPrimaryColor(Context context) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        return typedValue.data;
     }
 
     private String[] getItemTexts(Context context, TypedArray typedArray) {
