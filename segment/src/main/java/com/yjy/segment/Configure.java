@@ -12,30 +12,19 @@ import android.util.TypedValue;
  */
 public class Configure {
 
-    String[] mItemTexts;
-    // Segment text size
+    private final String[] mItemTexts;
 
-    private final int[] mItemColors;
+    private final float mTextSize;
 
-    float mTextSize;
-    // Stroke width of segment border
-    float mBorderWidth;
+    private final float mRound;
 
-    // Padding between text and segment border
-    float mInsetPaddingX;
+    private final float mBorderWidth;
 
-    // Padding between text and segment border
-    float mInsetPaddingY;
+    private final float mInsetPaddingX;
 
-    // default segment color
-    int mColor;
+    private final float mInsetPaddingY;
 
-    // roundBorder round r
-    float mRound = 25;
-
-    private final float mDividerScale;
-
-    private final int mTextColor;
+    private final int mColor;
 
     private final int mBorderColor;
 
@@ -43,30 +32,34 @@ public class Configure {
 
     private final int mDividerColor;
 
+    private final int mTextColor;
+
     private final int mHighlightTextColor;
 
     private final int mHighlightColor;
 
-    private  HighlightStyle mHighlightStyle;
+    private final int[] mItemColors;
 
     private final int mMacroColorBitFlags;
 
+    private final float mDividerScale;
+
+    private  HighlightStyle mHighlightStyle;
+
     Configure(Context context, AttributeSet attrs) {
+
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.segment);
-        mRound = typedArray.getDimension(
-                R.styleable.segment_round, dpToPix(context, 25));
 
-        mDividerScale = getDividerScale(typedArray);
-
-        mBorderWidth = typedArray.getDimension(
-                R.styleable.segment_borderWidth, dpToPix(context, 1.5f));
+        mItemTexts = getItemTexts(context, typedArray);
 
         mTextSize = typedArray.getDimension(
                 R.styleable.segment_textSize, dpToPix(context, 14));
 
-        mColor = typedArray.getColor(
-                R.styleable.segment_color, Color.GRAY
-        );
+        mRound = typedArray.getDimension(
+                R.styleable.segment_round, dpToPix(context, 25));
+
+        mBorderWidth = typedArray.getDimension(
+                R.styleable.segment_borderWidth, dpToPix(context, 1.5f));
 
         mInsetPaddingX = typedArray.getDimension(
                 R.styleable.segment_paddingX, dpToPix(context, 0)
@@ -76,12 +69,11 @@ public class Configure {
                 R.styleable.segment_paddingY, dpToPix(context, 0)
         );
 
-        int id = typedArray.getResourceId(R.styleable.segment_entry, -1);
-        mItemTexts = context.getResources().getStringArray(id);
+        mHighlightStyle = HighlightStyle.values()[(typedArray.getInt(R.styleable.segment_highlightStyle, 0))];
 
-        mItemColors = getItemColors(context, typedArray);
-
-        mMacroColorBitFlags = typedArray.getInt(R.styleable.segment_macroColor, 0);
+        mColor = typedArray.getColor(
+                R.styleable.segment_color, Color.GRAY
+        );
 
         mTextColor = typedArray.getColor(R.styleable.segment_textColor, mColor);
         mHighlightTextColor = typedArray.getColor(R.styleable.segment_highlightTextColor, Color.WHITE);
@@ -90,8 +82,18 @@ public class Configure {
         mBackgroundColor = typedArray.getColor(R.styleable.segment_backgroundColor, 0);
         mHighlightColor = typedArray.getColor(R.styleable.segment_highlightColor, mColor);
 
-        mHighlightStyle = HighlightStyle.values()[(typedArray.getInt(R.styleable.segment_highlightStyle, 0))];
+        mItemColors = getItemColors(context, typedArray);
 
+        mMacroColorBitFlags = typedArray.getInt(R.styleable.segment_macroColor, 0);
+
+        mDividerScale = getDividerScale(typedArray);
+
+        typedArray.recycle();
+    }
+
+    private String[] getItemTexts(Context context, TypedArray typedArray) {
+        int id = typedArray.getResourceId(R.styleable.segment_entry, -1);
+        return context.getResources().getStringArray(id);
     }
 
     @Nullable
@@ -126,18 +128,12 @@ public class Configure {
         return mItemTexts;
     }
 
-    /**
-     * 获取每个选项设定的颜色
-     *
-     * @return 当没有设置该项，返回null
-     */
-    @Nullable
-    public int[] getItemColors() {
-        return mItemColors;
-    }
-
     public float getTextSize() {
         return mTextSize;
+    }
+
+    public float getRound() {
+        return mRound;
     }
 
     public float getBorderWidth() {
@@ -152,23 +148,22 @@ public class Configure {
         return mInsetPaddingY;
     }
 
-    public int getColor() {
-        return mColor;
-    }
-
-    public float getRound() {
-        return mRound;
-    }
-
     /**
-     * @return 分割线高度百分比，范围0 - 1
+     * 获取每个选项设定的颜色
+     *
+     * @return 当没有设置该项，返回null
      */
-    public float getDividerScale() {
-        return mDividerScale;
+    @Nullable
+    public int[] getItemColors() {
+        return mItemColors;
     }
 
     public HighlightStyle getHighlightStyle() {
         return mHighlightStyle;
+    }
+
+    public int getColor() {
+        return mColor;
     }
 
     public int getBorderColor() {
@@ -187,12 +182,12 @@ public class Configure {
         return mTextColor;
     }
 
-    public int getHighlightTextColor() {
-        return mHighlightTextColor;
-    }
-
     public int getHighlightColor() {
         return mHighlightColor;
+    }
+
+    public int getHighlightTextColor() {
+        return mHighlightTextColor;
     }
 
     /**
@@ -200,6 +195,13 @@ public class Configure {
      */
     public boolean isUseMacroColor(MacroColor macroColor) {
         return MacroColor.isMatch(mMacroColorBitFlags, macroColor);
+    }
+
+    /**
+     * @return 分割线高度百分比，范围0 - 1
+     */
+    public float getDividerScale() {
+        return mDividerScale;
     }
 
     public enum HighlightStyle {
