@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 
 /**
- * Created by Administrator on 2017/12/12 0012.
+ * 这个类用于保存用户对Segment属性设置
  */
 public class Configure {
 
@@ -56,6 +56,12 @@ public class Configure {
 
     private  HighlightStyle mHighlightStyle;
 
+    /**
+     * 此方法在View的构造器中调用
+     *
+     * @param context View的Context
+     * @param attrs   View的attrs
+     */
     Configure(Context context, AttributeSet attrs) {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.segment);
@@ -140,32 +146,50 @@ public class Configure {
                 context.getResources().getDisplayMetrics());
     }
 
+    /**
+     * @return 所有条目的文本
+     */
     public String[] getItemTexts() {
         return mItemTexts;
     }
 
+    /**
+     * @return 文本字体大小(px)，默认为{@value #DEFAULT_TEXT_SIZE}(sp)
+     */
     public float getTextSize() {
         return mTextSize;
     }
 
+    /**
+     * @return 圆角大小(px)，默认为{@value #DEFAULT_ROUND}(dp)
+     */
     public float getRound() {
         return mRound;
     }
 
+    /**
+     * @return 边框线条宽度(px)，(px)默认为{@value #DEFAULT_BORDER_WIDTH}(dp)
+     */
     public float getBorderWidth() {
         return mBorderWidth;
     }
 
+    /**
+     * @return X方向上边框的内空白大小(px)，默认为{@value #DEFAULT_PADDING_X}
+     */
     public float getInsetPaddingX() {
         return mInsetPaddingX;
     }
 
+    /**
+     * @return Y方向上边框的内空白大小(px)，默认为{@value #DEFAULT_PADDING_Y}
+     */
     public float getInsetPaddingY() {
         return mInsetPaddingY;
     }
 
     /**
-     * 获取每个选项设定的颜色
+     * 获取所有条目设置的颜色
      *
      * @return 当没有设置该项，返回null
      */
@@ -178,36 +202,58 @@ public class Configure {
         return mHighlightStyle;
     }
 
+    /**
+     * @return 获取颜色，默认为{@link R.attr#colorPrimary Primary Color}
+     */
     public int getColor() {
         return mColor;
     }
 
+    /**
+     * @return 获取边框颜色，默认取值{@link #getColor()}
+     */
     public int getBorderColor() {
         return mBorderColor;
     }
 
+    /**
+     * @return 获取背景颜色，默认无颜色#0000
+     */
     public int getBackgroundColor() {
         return mBackgroundColor;
     }
 
+    /**
+     * @return 获取分割线颜色，默认取值{@link #getColor()}
+     */
     public int getDividerColor() {
         return mDividerColor;
     }
 
+    /**
+     * @return 获取文本颜色，默认取值{@link #getColor()}
+     */
     public int getTextColor() {
         return mTextColor;
     }
 
+    /**
+     * @return 获取高亮颜色，默认取值{@link #getColor()}
+     */
     public int getHighlightColor() {
         return mHighlightColor;
     }
 
+    /**
+     * @return 获取高亮文本颜色，默认取值{@link Color#WHITE}
+     */
     public int getHighlightTextColor() {
         return mHighlightTextColor;
     }
 
     /**
-     * 判断是否绘制部分是否使用了macro color
+     * 判断哪些绘制部分使用了macro color
+     * @param macroColor 要判断的绘制部分
      */
     public boolean isUseMacroColor(MacroColor macroColor) {
         return MacroColor.isMatch(mMacroColorBitFlags, macroColor);
@@ -220,15 +266,62 @@ public class Configure {
         return mDividerScale;
     }
 
+    /**
+     * 高粱类型
+     */
     public enum HighlightStyle {
-        NORMAL, ROUND, CIRCLE
+
+        /**
+         * 矩形
+         */
+        NORMAL,
+
+        /**
+         * 圆角矩形
+         */
+        ROUND,
+
+        /**
+         * 圆形
+         */
+        CIRCLE
+
     }
 
     /**
      * 哪一个绘制部分需要用到Macro Color
      */
     public enum MacroColor {
-        BORDER, BACKGROUND, DIVIDER, TEXT, HIGHLIGHT, HIGHLIGHT_TEXT;
+
+        /**
+         * 背景边框
+         */
+        BORDER,
+
+        /**
+         * 背景
+         */
+        BACKGROUND,
+
+        /**
+         * 分割线
+         */
+        DIVIDER,
+
+        /**
+         * 文本
+         */
+        TEXT,
+
+        /**
+         * 高亮
+         */
+        HIGHLIGHT,
+
+        /**
+         * 高亮文本
+         */
+        HIGHLIGHT_TEXT;
 
         private final int mBitMasker = 1 << this.ordinal();
 
