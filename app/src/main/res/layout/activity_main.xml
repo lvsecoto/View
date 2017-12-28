@@ -15,231 +15,83 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="默认，带边框，被边框切割的长方体指示器" />
+            android:text="默认" />
 
         <com.yjy.segment.Segment
-
             style="@style/standard"
-            app:borderWidth="1.5dp"
-            app:color="@color/subject"
-            app:entry="@array/textEntry"
-            app:paddingX="20dp"
-            app:paddingY="4dp"
-            app:round="12dp"
+            app:entry="@array/textEntry" />
 
-            app:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="灰色背景，字体白色，指示器悬浮在上面" />
+            android:text="无边框，灰色背景，文本白色，矩形高亮" />
 
         <com.yjy.segment.Segment
             style="@style/standard"
             app:backgroundColor="@color/shadow"
             app:borderColor="@color/none"
-            app:borderWidth="1.5dp"
-            app:color="@color/subject"
-            app:dividerColor="@color/none"
             app:entry="@array/netEntry"
-
+            app:dividerColor="@color/none"
             app:highlightStyle="ROUND"
-            app:paddingX="20dp"
-            app:paddingY="4dp"
-            app:round="12dp"
-            app:textColor="#FFF"
-
-            app:textSize="16sp" />
+            app:textColor="@android:color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="无背景，字体灰色，无指示器，高亮字体" />
+            android:text="无边框，无背景，字灰色体体，无指示器，高亮文本" />
 
         <com.yjy.segment.Segment
             style="@style/standard"
             android:layout_width="match_parent"
-
             app:borderColor="@color/none"
-            app:borderWidth="1.5dp"
-            app:color="@color/subject"
             app:dividerColor="@color/none"
             app:entry="@array/numEntry"
             app:highlightColor="@color/none"
-            app:highlightTextColor="@color/subject"
-
-            app:paddingX="20dp"
-            app:paddingY="2dp"
-            app:round="12dp"
-            app:textColor="@color/shadow"
-            app:textSize="18sp" />
+            app:highlightTextColor="@color/colorPrimary"
+            app:textColor="@color/shadow" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="无背景，字体灰色，圆形指示器，分割线35%高度" />
+            android:text="无背景，文本灰色，圆形指示器，分割线35%高度" />
 
         <com.yjy.segment.Segment
             style="@style/standard"
             android:layout_width="match_parent"
-
             app:borderColor="@color/none"
-            app:borderWidth="1.5dp"
-            app:color="@color/subject"
             app:dividerColor="@color/shadow"
             app:dividerScale="35%"
             app:entry="@array/numEntry"
             app:highlightStyle="CIRCLE"
-            app:paddingX="20dp"
-
-            app:paddingY="2dp"
-            app:round="12dp"
-            app:textColor="@color/shadow"
-            app:textSize="18sp" />
+            app:textColor="@color/shadow" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="默认，跟随选项改变颜色" />
+            android:text="高亮颜色跟随选项改变" />
+
+        <com.yjy.segment.Segment
+            style="@style/standard"
+            app:color="@color/shadow"
+            app:entry="@array/onOff"
+            app:entryColor="@array/onOffColor"
+            app:macroColor="highlight" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="无分割线，圆角高亮。边框，文本，高亮颜色跟随选项改变" />
 
         <com.yjy.segment.Segment
             style="@style/standard"
             android:layout_width="200dp"
-
-            app:borderColor="@color/none"
-            app:borderWidth="1.5dp"
             app:entry="@array/fruitEntry"
             app:entryColor="@array/fruitColors"
             app:macroColor="border|text|highlight"
+            app:paddingY="6dp"
             app:dividerColor="@color/none"
-            app:highlightStyle="ROUND"
+            app:highlightStyle="ROUND" />
 
-            app:paddingX="20dp"
-            app:paddingY="4dp"
-            app:round="8dp"
-            app:textColor="@color/shadow" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="颜色跟随" />
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <TableRow>
-
-                <TextView
-                    android:gravity="center"
-                    android:text="边框" />
-
-                <TextView
-                    android:gravity="center"
-                    android:text="背景" />
-            </TableRow>
-
-            <TableRow>
-
-                <com.yjy.segment.Segment
-                    android:layout_margin="8dp"
-                    app:borderWidth="1.5dp"
-                    app:color="@color/subject"
-                    app:entry="@array/onOff"
-                    app:entryColor="@array/onOffColor"
-                    app:macroColor="border"
-                    app:paddingX="20dp"
-                    app:paddingY="4dp"
-                    app:round="8dp" />
-
-                <com.yjy.segment.Segment
-                    android:layout_margin="8dp"
-                    app:borderWidth="1.5dp"
-                    app:color="@color/subject"
-                    app:entry="@array/onOff"
-                    app:entryColor="@array/onOffColor"
-                    app:macroColor="background"
-                    app:paddingX="20dp"
-                    app:paddingY="4dp"
-                    app:round="8dp" />
-
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:gravity="center"
-                    android:text="分割线" />
-
-                <TextView
-                    android:gravity="center"
-                    android:text="文字" />
-            </TableRow>
-
-            <TableRow>
-
-                <com.yjy.segment.Segment
-                    android:layout_margin="8dp"
-                    app:borderWidth="1.5dp"
-                    app:color="@color/subject"
-                    app:entry="@array/onOff"
-                    app:entryColor="@array/onOffColor"
-                    app:macroColor="divider"
-                    app:paddingX="20dp"
-                    app:paddingY="4dp"
-                    app:round="8dp" />
-
-                <com.yjy.segment.Segment
-                    android:layout_margin="8dp"
-                    app:borderWidth="1.5dp"
-                    app:color="@color/subject"
-                    app:entry="@array/onOff"
-                    app:entryColor="@array/onOffColor"
-                    app:macroColor="text"
-                    app:paddingX="20dp"
-                    app:paddingY="4dp"
-                    app:round="8dp" />
-
-            </TableRow>
-
-            <TableRow>
-
-                <TextView
-                    android:gravity="center"
-                    android:text="高亮" />
-
-                <TextView
-                    android:gravity="center"
-                    android:text="高亮文字" />
-            </TableRow>
-
-            <TableRow>
-
-                <com.yjy.segment.Segment
-                    android:layout_margin="8dp"
-                    app:borderWidth="1.5dp"
-                    app:color="@color/subject"
-                    app:entry="@array/onOff"
-                    app:entryColor="@array/onOffColor"
-                    app:macroColor="highlight"
-                    app:paddingX="20dp"
-                    app:paddingY="4dp"
-                    app:round="8dp" />
-
-                <com.yjy.segment.Segment
-                    android:layout_margin="8dp"
-                    app:borderWidth="1.5dp"
-                    app:color="@color/subject"
-                    app:entry="@array/onOff"
-                    app:entryColor="@array/onOffColor"
-                    app:macroColor="highlight_text"
-                    app:paddingX="20dp"
-                    app:paddingY="4dp"
-                    app:round="8dp" />
-
-            </TableRow>
-        </TableLayout>
     </LinearLayout>
 </ScrollView>
